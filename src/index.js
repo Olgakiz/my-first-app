@@ -45,6 +45,16 @@ function updateDate(date) {
     let description = response.data.weather[0].main;
     let descriptionElement = document.querySelector("#weather-description");
     descriptionElement.innerHTML = description;
+    let iconElement = document.querySelector("#icon");
+    iconElement.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    );
+    iconElement.setAttribute("alt", response.data.weather[0].description);
+
+
+  celsiusTemperature = response.data.main.temp;
+  
   }
   
   function searchCity(city) {
@@ -86,4 +96,30 @@ function updateDate(date) {
   let currentLocationButton = document.querySelector("#current-location-button");
   currentLocationButton.addEventListener("click", getLocation);
   
-  searchCity("Lviv");
+searchCity("Lviv");
+  
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
+
+function displayCelsiusTemperature(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let temperatureElement = document.querySelector("#temp-value");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+}
+
+function displayFahrenheitTemperature(event) {
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#temp-value");
+
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let fahrenheiTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureElement.innerHTML = Math.round(fahrenheiTemperature);
+}
+let celsiusTemperature = null;
