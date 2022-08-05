@@ -130,21 +130,3 @@ celsiusLink.addEventListener("click", displayCelsiusTemperature);
 search("Kharkiv");
 
 
-
-
-function determinePosition(position) {
-let latitude = position.coords.latitude;
-let longitude = position.coords.longitude;
-let units = "metric";
-let apiKey = "e97030c631d464199a280151bfa20f4c";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${units}`;
-axios.get(apiUrl).then(showWeather);
-}
-
-function getLocation(event) {
-event.preventDefault();
-navigator.geolocation.getCurrentPosition(determinePosition);
-}
-
-let currentLocationButton = document.querySelector("#current-location-button");
-currentLocationButton.addEventListener("click", getLocation);
